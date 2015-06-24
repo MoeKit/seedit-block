@@ -1,0 +1,26 @@
+{
+  "name": "seedit-block",
+  "version": "0.0.1",
+  "description": "Seedit Common Header and Footer Blocks.",
+  "keywords": [],
+  "homepage": "",
+  "author": "yyy <yyydao11@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": {
+    "url": ""
+  },
+  "licenses": "MIT",
+  "spm": {
+    "main": "index.js",
+    "dependencies": {
+        "seedit-api":"0.0.5",
+        "seedit-config":"0.1.1"
+    },
+    "devDependencies": {
+      "expect.js": "0.3.1"
+    }
+  }
+}
