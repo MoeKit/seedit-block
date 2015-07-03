@@ -1,8 +1,10 @@
 "use strict";
 var APICore = require('seedit-api');
-
+var Events = require('eventor');
+var $ = require('jQuery');
 
 var cAPI = APICore.scope('common');
+var eventor = new Events();
 
 var $footWrapHtml =  $('<div class="g_footerWrap">'+
     '<div class="g_footer">'+
@@ -11,22 +13,36 @@ var $footWrapHtml =  $('<div class="g_footerWrap">'+
     '</div>'+
     '</div>');
 
-
 //PC统一头部
-var  getPcHead = function () {
-    cAPI.get('cms/content', {type: 'block', id: '51872356327d5fe81f000024'},
-        function (d) {
-            $('body').prepend(d);
-            seajs.use('http://scdn.bozhong.com/source/common/js/global/common.min.js');
-            seajs.use('http://scdn.bozhong.com/source/common/js/common_nav.js');
-        },
-        function (e) {
-            console.log('ERROR LOAD PC HEAD',e);
-        }
-    );
-};
+ function getPCHead() {
+     console.log(this);
+     var _this = this;
+     return function(){
+         _this.trigger('start');
+         cAPI.get('cms/content', {type: 'block', id: '51872356327d5fe81f000024'},
+             function (d) {
+                 $('body').prepend(d);
+                 seajs.use('http://scdn.bozhong.com/source/common/js/global/common.min.js');
+                 seajs.use('http://scdn.bozhong.com/source/common/js/common_nav.js');
+                 console.log('_this1',_this)
+                 _this.trigger('finish');
+                 console.log('_this2',_this)
+             },
+             function (e) {
+                 console.log('ERROR LOAD PC HEAD',e);
+             }
+         );
+         _this.trigger('end');
+         console.log(_this);
 
-exports.getPcHead = getPcHead;
+         return _this;
+     };
+
+}
+
+Events.mixTo(getPCHead);
+
+exports.getPCHead = new getPCHead();
 
 
 //WAP头部
@@ -126,3 +142,7 @@ exports.getBlock = function(id,cb,ecb){
         ecb
     );
 };
+
+
+
+
