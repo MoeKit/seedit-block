@@ -1,8 +1,15 @@
 "use strict";
 var APICore = require('seedit-api');
-
-
 var cAPI = APICore.scope('common');
+
+function getSiteUrl(domain, host) {
+    host = host || document.location.host;
+    var tmp = host.split('.');
+    if (tmp.length >= 3) {
+        tmp = tmp.slice(1);
+    }
+    return ['http://' + domain].concat(tmp).join('.');
+};
 
 var $footWrapHtml =  $('<div class="g_footerWrap">'+
     '<div class="g_footer">'+
@@ -17,8 +24,8 @@ var  getPcHead = function () {
     cAPI.get('cms/content', {type: 'block', id: '51872356327d5fe81f000024'},
         function (d) {
             $('body').prepend(d);
-            seajs.use('http://scdn.bozhong.com/source/common/js/global/common.min.js');
-            seajs.use('http://scdn.bozhong.com/source/common/js/common_nav.js');
+            seajs.use(getSiteUrl('source') + '/common/js/global/common.min.js');
+            seajs.use(getSiteUrl('source') + '/common/js/common_nav.js');
         },
         function (e) {
             console.log('ERROR LOAD PC HEAD',e);
