@@ -16,8 +16,8 @@
   "spm": {
     "main": "index.js",
     "dependencies": {
-        "seedit-api":"0.0.5",
-        "seedit-config":"0.1.1"
+        "seedit-api":"0.0.6",
+        "seedit-config":"0.1.3"
     },
     "devDependencies": {
       "expect.js": "0.3.1"

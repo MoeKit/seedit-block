@@ -8,7 +8,7 @@ function getSiteUrl(domain, host) {
     if (tmp.length >= 3) {
         tmp = tmp.slice(1);
     }
-    return ['http://' + domain].concat(tmp).join('.');
+    return ['//' + domain].concat(tmp).join('.');
 };
 
 var $footWrapHtml =  $('<div class="g_footerWrap">'+
